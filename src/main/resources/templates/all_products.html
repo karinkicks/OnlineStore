@@ -6,6 +6,9 @@
 </head>
 <body>
     <h1>All products</h1>
+
+        <a th:href="@{/products}">Добавить</a>
+
     <form th:action="@{/all_products}" method="get">
         <input th:value="${param.min != null ? param.min : ''}" type="number" placeholder="Минимальная цена" name="min"/>
         <input th:value="${param.max != null ? param.max : ''}" type="number" placeholder="Максимальная цена" name="max"/>
@@ -13,6 +16,26 @@
         <button type="submit">Найти</button>
         <br>
     </form>
-    <p th:each="product : ${products}" th:text="${product.getName()}" />
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Название</th>
+                <th>Стоимость</th>
+                <th>Действие</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="product : ${products}">
+                <td th:text="${product.id}"/>
+                <td th:text="${product.name}"/>
+                <td th:text="${product.cost}"/>
+                <td>
+                    <a th:href="@{'/products/delete/' + ${product.id}}">Удалить</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
 </body>
 </html>

@@ -31,7 +31,7 @@ public class Product {
         return name;
     }
 
-    public double getCost() {
+    public Double getCost() {
         return cost;
     }
 
