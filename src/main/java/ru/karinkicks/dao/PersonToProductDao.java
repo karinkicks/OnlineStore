@@ -1,4 +1,4 @@
-package ru.karinkicks.servlet;
+package ru.karinkicks.dao;
 
 import org.springframework.stereotype.Service;
 import ru.karinkicks.entity.Person;
@@ -13,7 +13,7 @@ public class PersonToProductDao {
     private final PersonDao personDao;
 
     public PersonToProductDao(ProductDao productDao, PersonDao personDao){
-        this.productDao=productDao;
+        this.productDao = productDao;
         this.personDao=personDao;
     }
 

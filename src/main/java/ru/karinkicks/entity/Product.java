@@ -7,15 +7,15 @@ import java.util.List;
 @Table(name="product")
 public class Product {
     @Id
-    @GeneratedValue
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false, updatable = false)
     private Long id;
 
     @Column(name = "name")
     private String name;
 
     @Column(name="cost")
-    private double cost;
+    private Double cost;
 
     @ManyToMany
     @JoinTable(name = "person2product",

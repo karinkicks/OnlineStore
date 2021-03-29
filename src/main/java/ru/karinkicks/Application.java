@@ -20,7 +20,7 @@ public class Application {
     {
         JettyServletWebServerFactory factory = new JettyServletWebServerFactory();
         factory.setPort(8080);
-        factory.setContextPath("/store");
+        factory.setContextPath("/app");
         factory.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/notfound.html"));
         return factory;
     }

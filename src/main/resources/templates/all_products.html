@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>All products</h1>
+    <form th:action="@{/all_products}" method="get">
+        <input th:value="${param.min != null ? param.min : ''}" type="number" placeholder="Минимальная цена" name="min"/>
+        <input th:value="${param.max != null ? param.max : ''}" type="number" placeholder="Максимальная цена" name="max"/>
+        <br>
+        <button type="submit">Найти</button>
+        <br>
+    </form>
+    <p th:each="product : ${products}" th:text="${product.getName()}" />
+</body>
+</html>
