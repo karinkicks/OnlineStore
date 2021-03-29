@@ -1,0 +1,108 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+   http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet id="create_table_product3" author="k.rybchenko">
+        <createTable tableName="product">
+            <column name="id"
+                    type="serial"
+                    autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name"
+                    type="varchar(50)" >
+                <constraints nullable="false" />
+            </column>
+            <column name="cost"
+                    type="bigint" >
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="add_value_into_table_product3" author="k.rybchenko">
+        <insert tableName="product">
+            <column name="name" value="Product1"></column>
+            <column name="cost" value="10"></column>
+        </insert>
+        <insert tableName="product">
+            <column name="name" value="Product2"></column>
+            <column name="cost" value="20"></column>
+        </insert>
+        <insert tableName="product">
+            <column name="name" value="Product3"></column>
+            <column name="cost" value="30"></column>
+        </insert>
+        <insert tableName="product">
+            <column name="name" value="Product4"></column>
+            <column name="cost" value="40"></column>
+        </insert>
+        <insert tableName="product">
+            <column name="name" value="Product5"></column>
+            <column name="cost" value="50"></column>
+        </insert>
+        <insert tableName="product">
+            <column name="name" value="Product6"></column>
+            <column name="cost" value="60"></column>
+        </insert>
+        <insert tableName="product">
+            <column name="name" value="Product7"></column>
+            <column name="cost" value="70"></column>
+        </insert>
+        <insert tableName="product">
+            <column name="name" value="Product8"></column>
+            <column name="cost" value="80"></column>
+        </insert>
+        <insert tableName="product">
+            <column name="name" value="Product9"></column>
+            <column name="cost" value="90"></column>
+        </insert>
+        <insert tableName="product">
+            <column name="name" value="Product10"></column>
+            <column name="cost" value="100"></column>
+        </insert>
+        <insert tableName="product">
+            <column name="name" value="Product11"></column>
+            <column name="cost" value="110"></column>
+        </insert>
+        <insert tableName="product">
+            <column name="name" value="Product12"></column>
+            <column name="cost" value="120"></column>
+        </insert>
+        <insert tableName="product">
+            <column name="name" value="Product13"></column>
+            <column name="cost" value="130"></column>
+        </insert>
+        <insert tableName="product">
+            <column name="name" value="Product14"></column>
+            <column name="cost" value="140"></column>
+        </insert>
+        <insert tableName="product">
+            <column name="name" value="Product15"></column>
+            <column name="cost" value="150"></column>
+        </insert>
+        <insert tableName="product">
+            <column name="name" value="Product16"></column>
+            <column name="cost" value="160"></column>
+        </insert>
+        <insert tableName="product">
+            <column name="name" value="Product17"></column>
+            <column name="cost" value="170"></column>
+        </insert>
+        <insert tableName="product">
+            <column name="name" value="Product18"></column>
+            <column name="cost" value="180"></column>
+        </insert>
+        <insert tableName="product">
+            <column name="name" value="Product19"></column>
+            <column name="cost" value="190"></column>
+        </insert>
+        <insert tableName="product">
+            <column name="name" value="Product20"></column>
+            <column name="cost" value="200"></column>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

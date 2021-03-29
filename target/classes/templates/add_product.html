@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+</head>
+<body>
+<form th:action="@{/products}" th:object="${product}" method="post">
+    Name: <input type="text" th:field="*{name}"/>
+    <br>
+    cost: <input type="text" th:field="*{cost}"/>
+    <br>
+    <button type="submit">Сохранить</button>
+</form>
+</body>
+</html>
