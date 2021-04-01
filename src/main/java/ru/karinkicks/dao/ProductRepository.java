@@ -1,7 +1,5 @@
 package ru.karinkicks.dao;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import ru.karinkicks.entity.Product;

@@ -7,9 +7,10 @@ import org.springframework.boot.web.server.ErrorPage;
 import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
+import ru.karinkicks.controller.ProductRepositoryController;
 
 
-@SpringBootApplication
+@SpringBootApplication()
 public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);

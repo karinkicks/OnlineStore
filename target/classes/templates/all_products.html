@@ -31,7 +31,10 @@
                 <td th:text="${product.name}"/>
                 <td th:text="${product.cost}"/>
                 <td>
-                    <a th:href="@{'/products/delete/' + ${product.id}}">Удалить</a>
+                    <form action="#" th:action="@{'/products/' + ${product.id}}" th:method="delete">
+                        <input type="hidden" name="_method" value="delete"/>
+                        <button type="submit" id="submitButton">Удалить</button>
+                    </form>
                 </td>
             </tr>
         </tbody>

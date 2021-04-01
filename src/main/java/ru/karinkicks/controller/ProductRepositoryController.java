@@ -1,75 +1,56 @@
 package ru.karinkicks.controller;
-
-import liquibase.pro.packaged.S;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import ru.karinkicks.dao.ProductRepository;
 import ru.karinkicks.entity.Product;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
-@Controller
+@RestController
+@RequestMapping("/api/v1/products")
 public class ProductRepositoryController {
 
     private final ProductRepository productRepository;
 
-    @Autowired
-    public ProductRepositoryController(ProductRepository productRepository){
-        this.productRepository=productRepository;
+    public ProductRepositoryController(ProductRepository productRepository) {
+        this.productRepository = productRepository;
     }
 
-    @GetMapping( "/products")
-    public String getForm(Model uiModel){
-        uiModel.addAttribute("product", new Product());
-        return "add_product";
+    @PostMapping( "/")
+    public Product saveProduct(@RequestBody Product product){
+        return productRepository.save(product);
     }
 
-    @PostMapping("/products")
-    public String create(Product product) {
-        productRepository.save(product);
-        return "redirect:/all_products";
+    @PutMapping("/")
+    public Product updateProduct(@RequestBody Product product) {
+        return productRepository.save(product);
     }
 
     @GetMapping( "/all_products")
-    public String showProductRepository(Model uiModel,
+    public List<Product> showProductRepository(Model uiModel,
                                         @RequestParam(required = false, name = "min") Double min,
                                         @RequestParam(required = false, name = "max") Double max){
-
         if(min == null && max == null){
-            uiModel.addAttribute("products", productRepository.findAll());
-        }else if (min ==null && max != null){
-            uiModel.addAttribute("products", productRepository.findByCostLessThanEqual(max));
-        }else if(min != null && max == null){
-            uiModel.addAttribute("products", productRepository.findByCostGreaterThanEqual(min));
+            return productRepository.findAll();
+        }else if (min == null){
+            return productRepository.findByCostLessThanEqual(max);
+        }else if(max == null){
+            return productRepository.findByCostGreaterThanEqual(min);
         }else {
-            uiModel.addAttribute("products", productRepository.findByCostBetween(min, max));
+            return productRepository.findByCostBetween(min, max);
         }
-        return "all_products";
     }
 
-    @GetMapping( "/products/{id}")
-    public String findById(Model model, @PathVariable(value = "id") Long id) {
-        Optional<Product> product = productRepository.findById(id);
-        model.addAttribute("product", product.get());
-        return "redirect:/all_products";
+    @GetMapping( "/{id}")
+    public Product getById(Model model, @PathVariable(value = "id") Long id) {
+        return productRepository.findById(id).get();
     }
 
-    @GetMapping( "/products/delete/{id}")
-    public String deleteById(Model model, @PathVariable(value = "id") Long id) {
-        productRepository.deleteById(id);
-        return "redirect:/all_products";
+    @DeleteMapping( "/{id}")
+    public void deleteById(@PathVariable Long id) {
+        productRepository.delete(productRepository.findById(id).orElseThrow(NoSuchElementException::new));
     }
 
 }
