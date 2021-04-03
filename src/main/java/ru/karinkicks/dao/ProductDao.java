@@ -17,7 +17,6 @@ public class ProductDao {
 
     @PersistenceUnit
     private EntityManagerFactory entityManagerFactory;
-
     private EntityManager entityManager;
 
     @PostConstruct

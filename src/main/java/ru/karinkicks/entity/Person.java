@@ -1,5 +1,7 @@
 package ru.karinkicks.entity;
 
+import springfox.documentation.annotations.ApiIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 

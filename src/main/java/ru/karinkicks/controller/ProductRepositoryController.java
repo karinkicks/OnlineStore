@@ -1,12 +1,11 @@
 package ru.karinkicks.controller;
-import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.*;
 import ru.karinkicks.dao.ProductRepository;
 import ru.karinkicks.entity.Product;
-
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/api/v1/products")
@@ -29,7 +28,7 @@ public class ProductRepositoryController {
     }
 
     @GetMapping( "/all_products")
-    public List<Product> showProductRepository(Model uiModel,
+    public List<Product> showProductRepository(
                                         @RequestParam(required = false, name = "min") Double min,
                                         @RequestParam(required = false, name = "max") Double max){
         if(min == null && max == null){
@@ -44,8 +43,8 @@ public class ProductRepositoryController {
     }
 
     @GetMapping( "/{id}")
-    public Product getById(Model model, @PathVariable(value = "id") Long id) {
-        return productRepository.findById(id).get();
+    public Product getById(@PathVariable(value = "id") Long id) {
+        return productRepository.findById(id).orElseThrow(NoSuchElementException::new);
     }
 
     @DeleteMapping( "/{id}")

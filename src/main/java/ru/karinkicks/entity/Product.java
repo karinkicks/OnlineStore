@@ -1,6 +1,7 @@
 package ru.karinkicks.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,12 +12,15 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
+    @ApiModelProperty("Идентификатор товара")
     private Long id;
 
     @Column(name = "name")
+    @ApiModelProperty("Наименование товара")
     private String name;
 
     @Column(name="cost")
+    @ApiModelProperty("Цена товара")
     private Double cost;
 
     @JsonIgnore
