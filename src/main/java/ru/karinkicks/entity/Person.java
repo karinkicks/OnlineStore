@@ -1,61 +1,48 @@
 package ru.karinkicks.entity;
 
-import springfox.documentation.annotations.ApiIgnore;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
+@Data
 @Table(name = "person")
 public class Person {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
+    @Column(name = "username")
+    private String username;
+
+    @Column(name = "password")
+    private String password;
+
     @Column(name = "firstname")
-    private String firstName;
+    private String firstname;
 
     @Column(name = "lastname")
-    private String lastName;
+    private String lastname;
 
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "person2product",
     joinColumns = @JoinColumn(name = "person_id"),
     inverseJoinColumns = @JoinColumn(name = "product_id"))
     private List<Product> products;
 
-    public Person(){}
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(name = "persons_roles",
+            joinColumns = @JoinColumn(name = "person_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Collection<Role> roles;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public List<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<Product> products) {
-        this.products = products;
+    public void addRole(Role role){
+        this.roles.add(role);
+        role.getPersons().add(this);
     }
 }

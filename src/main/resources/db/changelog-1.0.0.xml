@@ -105,4 +105,129 @@
             <column name="cost" value="200"></column>
         </insert>
     </changeSet>
+    <changeSet id="create_table_person" author="k.rybchenko">
+        <createTable tableName="person">
+            <column name="id"
+                    type="serial"
+                    autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="username"
+                    type="varchar" >
+                <constraints nullable="false" />
+            </column>
+            <column name="password"
+                    type="varchar" >
+                <constraints nullable="false" />
+            </column>
+            <column name="firstname"
+                    type="varchar" >
+                <constraints nullable="false" />
+            </column>
+            <column name="lastname"
+                    type="varchar" >
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="create_table_role" author="k.rybchenko">
+        <createTable tableName="roles">
+            <column name="id"
+                    type="serial"
+                    autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name"
+                    type="varchar" >
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="create_table_persons_roles" author="k.rybchenko">
+        <createTable tableName="persons_roles">
+            <column name="person_id"
+                    type="serial"
+                    autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="role_id"
+                    type="serial"
+                    autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="addForeignKeyConstraint1" author="k.rybchenko">
+        <addForeignKeyConstraint  baseColumnNames="person_id"
+                                  baseTableName="persons_roles"
+                                  baseTableSchemaName="public"
+                                  constraintName="fk_person_id"
+                                  deferrable="true"
+                                  initiallyDeferred="true"
+                                  onDelete="CASCADE"
+                                  onUpdate="RESTRICT"
+                                  referencedColumnNames="id"
+                                  referencedTableName="person"
+                                  referencedTableSchemaName="public"
+        />
+    </changeSet>
+    <changeSet id="addForeignKeyConstraint2" author="k.rybchenko">
+        <addForeignKeyConstraint  baseColumnNames="role_id"
+                                  baseTableName="persons_roles"
+                                  baseTableSchemaName="public"
+                                  constraintName="fk_role_id"
+                                  deferrable="true"
+                                  initiallyDeferred="true"
+                                  onDelete="CASCADE"
+                                  onUpdate="RESTRICT"
+                                  referencedColumnNames="id"
+                                  referencedTableName="roles"
+                                  referencedTableSchemaName="public"
+        />
+    </changeSet>
+    <changeSet id="add_value_into_table_person" author="k.rybchenko">
+        <insert tableName="person">
+            <column name="username" value="root"></column>
+            <column name="password" value="$2y$12$pnz2XpeD2Qk0mGKyO/lRIOJiAi46QYgIPgijKvZmECmZVhGyBiUBO"></column>
+            <column name="firstname" value="root"></column>
+            <column name="lastname" value="root"></column>
+        </insert>
+        <insert tableName="person">
+            <column name="username" value="admin"></column>
+            <column name="password" value="$2y$12$awPdDcbMhQiDB5WkdgTqdOOOcLn86CJVPRTLpo9i6e8SXyOyMeCAS"></column>
+            <column name="firstname" value="admin"></column>
+            <column name="lastname" value="admin"></column>
+        </insert>
+        <insert tableName="person">
+            <column name="username" value="user"></column>
+            <column name="password" value="$2y$12$CFksEoJF.Y52u503m4azYOFOL10Rlh4DYhH7OdcYjD6lVJLSeDlLu"></column>
+            <column name="firstname" value="user"></column>
+            <column name="lastname" value="user"></column>
+        </insert>
+    </changeSet>
+    <changeSet id="add_value_into_table_roles" author="k.rybchenko">
+        <insert tableName="roles">
+            <column name="name" value="ROLE_ROOT"></column>
+        </insert>
+        <insert tableName="roles">
+            <column name="name" value="ROLE_ADMIN"></column>
+        </insert>
+        <insert tableName="roles">
+            <column name="name" value="ROLE_MANAGER"></column>
+        </insert>
+    </changeSet>
+    <changeSet id="add_value_into_table_persons_roles" author="k.rybchenko">
+        <insert tableName="persons_roles">
+            <column name="person_id" value="1"></column>
+            <column name="role_id" value="1"></column>
+        </insert>
+        <insert tableName="persons_roles">
+            <column name="person_id" value="2"></column>
+            <column name="role_id" value="2"></column>
+        </insert>
+        <insert tableName="persons_roles">
+            <column name="person_id" value="3"></column>
+            <column name="role_id" value="3"></column>
+        </insert>
+    </changeSet>
 </databaseChangeLog>

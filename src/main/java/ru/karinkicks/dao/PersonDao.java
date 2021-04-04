@@ -54,18 +54,18 @@ public class PersonDao {
     public void saveOrUpdate(Person person){
         if(findById(person.getId()).isPresent()) {
             entityManager.getTransaction().begin();
-            entityManager.createQuery("update Person set id = :id, firstName = :firstName, lastName = :lastName where id = :id")
+            entityManager.createQuery("update Person set id = :id, firstname = :firstName, lastname = :lastName where id = :id")
                     .setParameter("id", person.getId())
-                    .setParameter("firstName", person.getFirstName())
-                    .setParameter("lastName", person.getLastName())
+                    .setParameter("firstName", person.getFirstname())
+                    .setParameter("lastName", person.getLastname())
                     .executeUpdate();
             entityManager.getTransaction().commit();
         }else {
             entityManager.getTransaction().begin();
             entityManager.createNativeQuery("INSERT INTO person (id, first_name, last_name) VALUES (?,?,?)")
                     .setParameter(1, person.getId())
-                    .setParameter(2, person.getFirstName())
-                    .setParameter(3, person.getLastName())
+                    .setParameter(2, person.getFirstname())
+                    .setParameter(3, person.getLastname())
                     .executeUpdate();
             entityManager.getTransaction().commit();
         }

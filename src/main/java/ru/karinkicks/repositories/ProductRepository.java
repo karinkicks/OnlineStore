@@ -1,4 +1,4 @@
-package ru.karinkicks.dao;
+package ru.karinkicks.repositories;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.data.jpa.repository.JpaRepository;

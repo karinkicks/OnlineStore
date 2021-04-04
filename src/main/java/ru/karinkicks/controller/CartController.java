@@ -2,21 +2,19 @@ package ru.karinkicks.controller;
 
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
-import ru.karinkicks.dao.Cart;
+import ru.karinkicks.repositories.CartRepository;
 import ru.karinkicks.dao.CartDto;
 import ru.karinkicks.entity.Product;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.concurrent.atomic.AtomicReference;
 
 @RestController
 @RequestMapping("/api/v1/cart")
 public class CartController {
-    private final Cart cart;
+    private final CartRepository cart;
 
-    public CartController(Cart cart) {
+    public CartController(CartRepository cart) {
         this.cart = cart;
     }
 

@@ -1,7 +1,7 @@
 package ru.karinkicks.controller;
 
 import org.springframework.web.bind.annotation.*;
-import ru.karinkicks.dao.ProductRepository;
+import ru.karinkicks.repositories.ProductRepository;
 import ru.karinkicks.entity.Product;
 import java.util.List;
 import java.util.NoSuchElementException;

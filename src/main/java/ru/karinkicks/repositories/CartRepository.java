@@ -1,4 +1,4 @@
-package ru.karinkicks.dao;
+package ru.karinkicks.repositories;
 
 import org.springframework.stereotype.Component;
 import ru.karinkicks.entity.Person;
@@ -7,12 +7,12 @@ import ru.karinkicks.entity.Product;
 import java.util.*;
 
 @Component
-public class Cart {
+public class CartRepository {
 
     private final ProductRepository productRepository;
     private final PersonRepository personRepository;
 
-    public Cart(ProductRepository productRepository, PersonRepository personRepository){
+    public CartRepository(ProductRepository productRepository, PersonRepository personRepository){
         this.productRepository = productRepository;
         this.personRepository = personRepository;
     }

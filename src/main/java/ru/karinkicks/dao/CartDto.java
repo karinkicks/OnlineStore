@@ -1,8 +1,6 @@
 package ru.karinkicks.dao;
 
-import ru.karinkicks.entity.Person;
 import ru.karinkicks.entity.Product;
-
 import java.util.List;
 
 public class CartDto {
