@@ -35,6 +35,10 @@
                         <input type="hidden" name="_method" value="delete"/>
                         <button type="submit" id="submitButton">Удалить</button>
                     </form>
+                    <form action="#" th:action="@{'/add_in_cart/' + ${product.id}}">
+                    <input type="hidden" name="_method" value="get"/>
+                    <button type="submit" id="submitButton1">Добавить в корзину</button>
+                    </form>
                 </td>
             </tr>
         </tbody>

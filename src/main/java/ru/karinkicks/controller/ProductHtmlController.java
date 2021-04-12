@@ -1,26 +1,34 @@
 package ru.karinkicks.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import ru.karinkicks.repositories.CartRepository;
+import ru.karinkicks.repositories.PersonRepository;
 import ru.karinkicks.repositories.ProductRepository;
 import ru.karinkicks.entity.Product;
 
+import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
 public class ProductHtmlController {
 
     private final ProductRepository productRepository;
+    private final CartRepository cartRepository;
+    private final PersonRepository personRepository;
 
-    @Autowired
-    public ProductHtmlController(ProductRepository productRepository){
+    public ProductHtmlController(ProductRepository productRepository, CartRepository cartRepository, PersonRepository personRepository){
         this.productRepository=productRepository;
+        this.cartRepository = cartRepository;
+        this.personRepository = personRepository;
     }
+
+
 
     @GetMapping
     public String getForm(Model uiModel){
@@ -59,8 +67,10 @@ public class ProductHtmlController {
     }
 
     @GetMapping( "/delete/{id}")
-    public String deleteById(Model model, @PathVariable Long id) {
+    public String deleteById(@PathVariable Long id) {
         productRepository.deleteById(id);
         return "redirect:/all_products";
     }
+
+
 }
