@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>All products in cart</h1>
+<table>
+  <thead>
+  <tr>
+    <th>Id</th>
+    <th>Название</th>
+    <th>Стоимость</th>
+    <th>Действие</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="product : ${products}">
+    <td th:text="${product.id}"/>
+    <td th:text="${product.name}"/>
+    <td th:text="${product.cost}"/>
+    <td>
+      <form action="#" th:action="@{'/delete_in_cart/' + ${product.id}}">
+        <input type="hidden" name="_method" value="delete"/>
+        <button type="submit" id="submitButton">Удалить</button>
+      </form>
+    </td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>
