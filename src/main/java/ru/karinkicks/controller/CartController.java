@@ -1,61 +1,33 @@
 package ru.karinkicks.controller;
 
-import io.swagger.annotations.ApiOperation;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import ru.karinkicks.repositories.CartRepository;
-import ru.karinkicks.dao.CartDto;
-import ru.karinkicks.entity.Product;
+import ru.karinkicks.dto.CartDto;
+import ru.karinkicks.entity.Cart;
+import ru.karinkicks.services.CartService;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.security.Principal;
+import java.util.NoSuchElementException;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("/api/v1/cart")
 public class CartController {
-    private final CartRepository cart;
+    private final CartService cartService;
 
-    public CartController(CartRepository cart) {
-        this.cart = cart;
-    }
-
-    @ApiOperation("Добавление продукта в корзину покупателя")
-    @PostMapping("/{personId}/{productId}")
-    public Product addProduct(@PathVariable Long personId, @PathVariable Long productId){
-        return cart.addProduct(personId, productId);
-    }
-
-    @ApiOperation("Просмотр всех имеющихся корзин")
-    @GetMapping
-    @ResponseBody
-    public List<CartDto> getProducts(){
-        List<CartDto> cartDtos = new ArrayList<>();
-        cart.getProductCart().forEach((person, products) -> {
-            CartDto cartDto = new CartDto();
-            cartDto.setPerson(person);
-            cartDto.setProduct(products);
-            cartDtos.add(cartDto);
-        });
-        return cartDtos;
-    }
-
-    @ApiOperation("Просмотр корзины по идентификатору покупателя")
     @GetMapping("/{id}")
-    @ResponseBody
-    public List<CartDto> getProductsByIdPerson(@PathVariable Long id){
-        List<CartDto> cartDtos = new ArrayList<>();
-        cart.getProductCart().forEach((person, products) -> {
-            if(person.equals(id)) {
-                CartDto cartDto = new CartDto();
-                cartDto.setPerson(person);
-                cartDto.setProduct(products);
-                cartDtos.add(cartDto);
-            }
-        });
-        return cartDtos;
+    public CartDto getCartById(@PathVariable Long id) {
+        Cart cart = cartService.findCartById(id).orElseThrow(NoSuchElementException::new);
+        return new CartDto(cart);
     }
-    @ApiOperation("Удаление продукта из корзины покупателя")
-    @DeleteMapping("/{personId}/{productId}")
-    public Product deleteProduct(@PathVariable Long personId, @PathVariable Long productId){
-        return cart.deleteProduct(personId, productId);
+
+    @GetMapping("/add/{productId}")
+    public void addProductToCart(@PathVariable Long productId, Principal principal) {
+        cartService.addProductToCartById(cartService.getIdCartFromUsername(principal.getName()), productId);
     }
+    @DeleteMapping("/add/{productId}") //Request method 'DELETE' not supported ??
+    public void deleteProductFromCart(@PathVariable Long productId, Principal principal){
+        cartService.deleteProductFromCartById(cartService.getIdCartFromUsername(principal.getName()), productId);
+    }
+
 }

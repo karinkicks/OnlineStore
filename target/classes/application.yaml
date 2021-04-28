@@ -1,10 +1,9 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/online-store
-    username: postgres
-    password: postgres
-    jpa:
-      show-sql: true
-  liquibase:
-    change-log: classpath:db/liquibase-changeLog.xml
+    url: jdbc:postgresql://localhost:5432/online-store1
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQL94Dialect
 

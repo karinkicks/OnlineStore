@@ -6,10 +6,10 @@ import org.springframework.boot.web.embedded.jetty.JettyServletWebServerFactory;
 import org.springframework.boot.web.server.ErrorPage;
 import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpStatus;
-import ru.karinkicks.controller.ProductRepositoryController;
 
-
+@PropertySource("classpath:private.properties")
 @SpringBootApplication()
 public class Application {
     public static void main(String[] args) {

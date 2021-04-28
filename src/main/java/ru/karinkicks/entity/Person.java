@@ -2,7 +2,11 @@ package ru.karinkicks.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
@@ -21,18 +25,16 @@ public class Person {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "firstname")
-    private String firstname;
+    @Column(name = "email")
+    private String email;
 
-    @Column(name = "lastname")
-    private String lastname;
+    @CreationTimestamp
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
 
-    @JsonIgnore
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "person2product",
-    joinColumns = @JoinColumn(name = "person_id"),
-    inverseJoinColumns = @JoinColumn(name = "product_id"))
-    private List<Product> products;
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
 
     @JsonIgnore
     @ManyToMany
@@ -41,8 +43,13 @@ public class Person {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Collection<Role> roles;
 
-    public void addRole(Role role){
+    @OneToOne
+    @JoinColumn(name = "cart_id")
+    private Cart cart;
+
+
+    /*public void addRole(Role role){
         this.roles.add(role);
         role.getPersons().add(this);
-    }
+    }*/
 }

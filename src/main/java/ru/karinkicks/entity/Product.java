@@ -3,7 +3,12 @@ package ru.karinkicks.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -20,14 +25,22 @@ public class Product {
     @ApiModelProperty("Наименование товара")
     private String name;
 
-    @Column(name="cost")
+    @Column(name="price")
     @ApiModelProperty("Цена товара")
-    private Double cost;
+    private Double price;
+
+    @CreationTimestamp
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
 
     @JsonIgnore
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "person2product",
+    @ManyToMany
+    @JoinTable(name = "products_categories",
             joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "person_id"))
-    private List<Person> persons;
+            inverseJoinColumns = @JoinColumn(name = "category_id"))
+    private Collection<Category> categories;
 }
