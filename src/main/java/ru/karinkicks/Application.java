@@ -16,13 +16,13 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
 
-    @Bean
-    public ConfigurableServletWebServerFactory webServerFactory()
-    {
-        JettyServletWebServerFactory factory = new JettyServletWebServerFactory();
-        factory.setPort(8080);
-        factory.setContextPath("/app");
-        factory.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/notfound.html"));
-        return factory;
-    }
+//    @Bean
+//    public ConfigurableServletWebServerFactory webServerFactory()
+//    {
+//        JettyServletWebServerFactory factory = new JettyServletWebServerFactory();
+//        factory.setPort(8080);
+//        factory.setContextPath("/app");
+//        factory.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/notfound.html"));
+//        return factory;
+//    }
 }

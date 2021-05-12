@@ -1,11 +1,19 @@
+create table cart (
+                      id                      bigserial primary key,
+--                       person_id               bigint references person (id),
+                      price                   int,
+                      created_at              timestamp default current_timestamp,
+                      updated_at              timestamp default current_timestamp
+);
+
 create table person (
     id                      bigserial primary key,
     username                varchar(30) not null unique,
     password                varchar(80) not null,
     email                   varchar(50) unique,
     created_at              timestamp default current_timestamp,
-    updated_at              timestamp default current_timestamp,
-    cart_id                 bigint references cart (id)
+    updated_at              timestamp default current_timestamp
+--  /*  cart_id                 bigint references cart (id)*/
 );
 
 create table role (
@@ -64,13 +72,7 @@ create table order_items (
     updated_at              timestamp default current_timestamp
 );
 
-create table cart (
-                       id                      bigserial primary key,
-                       person_id               bigint references person (id),
-                       price                   int,
-                       created_at              timestamp default current_timestamp,
-                       updated_at              timestamp default current_timestamp
-);
+
 
 create table cart_items (
                              id                      bigserial primary key,
