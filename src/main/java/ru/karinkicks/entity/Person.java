@@ -43,9 +43,9 @@ public class Person {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Collection<Role> roles;
 
-    @OneToOne
-    @JoinColumn(name = "cart_id")
-    private Cart cart;
+//    @OneToOne
+//    @JoinColumn(name = "cart_id")
+//    private Cart cart;
 
 
     /*public void addRole(Role role){

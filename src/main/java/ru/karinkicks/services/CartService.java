@@ -20,62 +20,62 @@ import java.util.stream.Collectors;
 @Service
 @AllArgsConstructor
 public class CartService {
-
-    private CartRepository cartRepository;
-    private PersonService personService;
-    private ProductService productService;
-    private PersonRepository personRepository;
-
-    public Optional<Cart> findCartById(Long id) {
-        return cartRepository.findById(id);
-    }
-
-    public Cart save(Cart cart) {
-        return cartRepository.save(cart);
-    }
-
-    public void addProductToCartById(Long cartId, Long productId) {
-        Cart cart = cartRepository.findById(cartId).orElseThrow(NoSuchElementException::new);
-        save(cart);
-        Optional<CartItem> cartItem = cart.getCartItemFromProductId(productId);
-
-        if (cartItem.isPresent()) {
-            cartItem.get().changeQuantityAndPrice();
-            cart.changePrice();
-            save(cart);
-            return;
-        }
-
-        Product product = productService.findProductById(productId).orElseThrow(NoSuchElementException::new);
-        cart.addItem(new CartItem(product));
-        save(cart);
-    }
-
-    public void deleteProductFromCartById(Long cartId, Long productId){
-        Cart cart = cartRepository.findById(cartId).orElseThrow(NoSuchElementException::new);
-        Optional<CartItem> cartItem = cartRepository.findById(cartId).get().getCartItemFromProductId(productId);
-        if(cartItem.isPresent()) {
-            cart.deleteItem(cartItem.get());
-        }
-    }
-
-    @Transactional
-    public Long getIdCartFromUsername(String username) {
-        Person person = getUser(username);
-        Cart cart = person.getCart();
-        //Long idCart = person.getCart().getId();
-        if(cart == null){
-            cart = new Cart(personService.findByUsername(username).get());
-            cartRepository.save(cart);
-            person.setCart(cart);
-
-        }
-        return person.getCart().getId();
-    }
-
-    private Person getUser(String username) {
-        return personService.findByUsername(username).orElseThrow(NoSuchElementException::new);
-    }
+//
+//    private CartRepository cartRepository;
+//    private PersonService personService;
+//    private ProductService productService;
+//    private PersonRepository personRepository;
+//
+//    public Optional<Cart> findCartById(Long id) {
+//        return cartRepository.findById(id);
+//    }
+//
+//    public Cart save(Cart cart) {
+//        return cartRepository.save(cart);
+//    }
+//
+//    public void addProductToCartById(Long cartId, Long productId) {
+//        Cart cart = cartRepository.findById(cartId).orElseThrow(NoSuchElementException::new);
+//        save(cart);
+//        Optional<CartItem> cartItem = cart.getCartItemFromProductId(productId);
+//
+//        if (cartItem.isPresent()) {
+//            cartItem.get().changeQuantityAndPrice();
+//            cart.changePrice();
+//            save(cart);
+//            return;
+//        }
+//
+//        Product product = productService.findProductById(productId).orElseThrow(NoSuchElementException::new);
+//        cart.addItem(new CartItem(product));
+//        save(cart);
+//    }
+//
+//    public void deleteProductFromCartById(Long cartId, Long productId){
+//        Cart cart = cartRepository.findById(cartId).orElseThrow(NoSuchElementException::new);
+//        Optional<CartItem> cartItem = cartRepository.findById(cartId).get().getCartItemFromProductId(productId);
+//        if(cartItem.isPresent()) {
+//            cart.deleteItem(cartItem.get());
+//        }
+//    }
+//
+//    @Transactional
+//    public Long getIdCartFromUsername(String username) {
+//        Person person = getUser(username);
+//        Cart cart = person.getCart();
+//        //Long idCart = person.getCart().getId();
+//        if(cart == null){
+//            cart = new Cart(personService.findByUsername(username).get());
+//            cartRepository.save(cart);
+//            person.setCart(cart);
+//
+//        }
+//        return person.getCart().getId();
+//    }
+//
+//    private Person getUser(String username) {
+//        return personService.findByUsername(username).orElseThrow(NoSuchElementException::new);
+//    }
 
 
 }
