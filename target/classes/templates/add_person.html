@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+</head>
+<body>
+<form th:action="@{/add_person}" th:object="${person}" method="post">
+    Username: <input type="text" th:field="*{username}"/>
+    <br>
+    Password: <input type="text" th:field="*{password}"/>
+    <br>
+    Firstname: <input type="text" th:field="*{firstname}"/>
+    <br>
+    Lastname: <input type="text" th:field="*{lastname}"/>
+    <br>
+    <button type="submit">Сохранить</button>
+</form>
+</body>
+</html>

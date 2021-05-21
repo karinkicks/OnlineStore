@@ -1,7 +1,6 @@
 package ru.karinkicks.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -13,21 +12,21 @@ import java.util.List;
 
 @Entity
 @Data
-@Table(name="product")
-public class Product {
+@Table(name = "person")
+public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    @ApiModelProperty("Идентификатор товара")
+    @Column(name = "id")
     private Long id;
 
-    @Column(name = "name")
-    @ApiModelProperty("Наименование товара")
-    private String name;
+    @Column(name = "username")
+    private String username;
 
-    @Column(name="price")
-    @ApiModelProperty("Цена товара")
-    private Double price;
+    @Column(name = "password")
+    private String password;
+
+    @Column(name = "email")
+    private String email;
 
     @CreationTimestamp
     @Column(name = "created_at")
@@ -39,8 +38,18 @@ public class Product {
 
     @JsonIgnore
     @ManyToMany
-    @JoinTable(name = "products_categories",
-            joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "category_id"))
-    private Collection<Category> categories;
+    @JoinTable(name = "persons_roles",
+            joinColumns = @JoinColumn(name = "person_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Collection<Role> roles;
+
+//    @OneToOne
+//    @JoinColumn(name = "cart_id")
+//    private Cart cart;
+
+
+    /*public void addRole(Role role){
+        this.roles.add(role);
+        role.getPersons().add(this);
+    }*/
 }
