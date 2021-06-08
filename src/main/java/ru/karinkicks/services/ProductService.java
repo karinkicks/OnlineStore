@@ -1,6 +1,9 @@
 package ru.karinkicks.services;
 
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import ru.karinkicks.dto.ProductDto;
 import ru.karinkicks.entity.Product;
@@ -33,5 +36,9 @@ public class ProductService {
 
     public void deleteById(Long id) {
         productRepository.deleteById(id);
+    }
+
+    public Page<ProductDto> findAll(Specification<Product> spec, int page, int pageSize) {
+        return productRepository.findAll(spec, PageRequest.of(page - 1, pageSize)).map(ProductDto::new);
     }
 }

@@ -3,12 +3,15 @@ package ru.karinkicks.dto;
 import lombok.Data;
 import ru.karinkicks.entity.OrderItem;
 
+import java.io.Serializable;
+import java.math.BigDecimal;
+
 @Data
-public class OrderItemDto {
+public class OrderItemDto implements Serializable {
     private Long productId;
     private String productName;
-    private Double pricePerProduct;
-    private Double price;
+    private BigDecimal pricePerProduct;
+    private BigDecimal price;
     private Integer quantity;
 
     public OrderItemDto(OrderItem orderItem) {

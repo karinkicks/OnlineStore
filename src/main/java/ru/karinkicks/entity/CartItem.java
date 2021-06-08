@@ -1,48 +1,37 @@
 package ru.karinkicks.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.redis.core.RedisHash;
+import org.springframework.data.redis.core.index.Indexed;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@Entity
+
 @Data
-@Table(name = "cart_items")
+@RedisHash("cart_item")
+@NoArgsConstructor
 public class CartItem {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "cart_id")
+    @Indexed
     private Cart cart;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id")
     private Product product;
 
-    @Column(name = "name")
     private String name;
 
-    @Column(name = "quantity")
     private Integer quantity;
 
-    @Column(name = "price_per_product")
-    private Double pricePerProduct;
+    private BigDecimal pricePerProduct;
 
-    @Column(name = "price")
-    private Double price;
-
-    @CreationTimestamp
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
-
-    @UpdateTimestamp
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
+    private BigDecimal price;
 
     public CartItem(Product product) {
         this.product = product;
@@ -52,11 +41,15 @@ public class CartItem {
         this.price = this.pricePerProduct;
     }
 
-    public CartItem(){
-
-    }
-    public void changeQuantityAndPrice(){
-        quantity++;
-        price=quantity*pricePerProduct;
-    }
+//    public void changeQuantityAndPrice(){
+//        quantity++;
+//        price=quantity*pricePerProduct;
+//    }
+//    @CreationTimestamp
+//    @Column(name = "created_at")
+//    private LocalDateTime createdAt;
+//
+//    @UpdateTimestamp
+//    @Column(name = "updated_at")
+//    private LocalDateTime updatedAt;
 }

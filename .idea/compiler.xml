@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="OnlineStore" />
+        <module name="mq-order-reciever" />
       </profile>
     </annotationProcessing>
   </component>

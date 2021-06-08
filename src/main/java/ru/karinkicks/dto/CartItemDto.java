@@ -4,12 +4,14 @@ import lombok.Data;
 import ru.karinkicks.entity.CartItem;
 import ru.karinkicks.entity.OrderItem;
 
+import java.math.BigDecimal;
+
 @Data
 public class CartItemDto {
     private Long productId;
     private String productName;
-    private Double pricePerProduct;
-    private Double price;
+    private BigDecimal pricePerProduct;
+    private BigDecimal price;
     private Integer quantity;
 
     public CartItemDto(CartItem cartItem) {

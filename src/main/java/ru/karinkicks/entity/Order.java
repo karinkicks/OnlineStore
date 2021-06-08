@@ -5,7 +5,9 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -20,7 +22,7 @@ public class Order {
     private String address;
 
     @Column(name = "price")
-    private Double price;
+    private BigDecimal price;
 
     @CreationTimestamp
     @Column(name = "created_at")
@@ -36,4 +38,16 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "person_id")
     private Person person;
+
+    public Order(Cart cart, String address, Person person) {
+        this.person = person;
+        this.address = address;
+        this.price = cart.getPrice();
+        this.orderItems = new ArrayList<>();
+        for (CartItem cartItem : cart.getCartItems()) {
+            OrderItem orderItem = new OrderItem(cartItem);
+            orderItem.setOrder(this);
+            this.orderItems.add(orderItem);
+        }
+    }
 }

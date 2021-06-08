@@ -4,13 +4,14 @@ import lombok.Data;
 import ru.karinkicks.entity.Cart;
 import ru.karinkicks.entity.CartItem;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
 public class CartDto {
     private List<CartItemDto> cartItemDtoList;
-    private Double price;
+    private BigDecimal price;
 
     public CartDto(Cart cart) {
         List<CartItemDto> cartItemDtoList = new ArrayList<>();
