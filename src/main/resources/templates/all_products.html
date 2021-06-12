@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>All products</h1>
+
+        <a th:href="@{/}">Добавить</a>
+
+    <form th:action="@{/all_products}" method="get">
+        <input th:value="${param.min != null ? param.min : ''}" type="number" placeholder="Минимальная цена" name="min"/>
+        <input th:value="${param.max != null ? param.max : ''}" type="number" placeholder="Максимальная цена" name="max"/>
+        <br>
+        <button type="submit">Найти</button>
+        <br>
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Название</th>
+                <th>Стоимость</th>
+                <th>Действие</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="product : ${products}">
+                <td th:text="${product.id}"/>
+                <td th:text="${product.name}"/>
+                <td th:text="${product.cost}"/>
+                <td>
+                    <form action="#" th:action="@{'/delete/' + ${product.id}}">
+                        <input type="hidden" name="_method" value="delete"/>
+                        <button type="submit" id="submitButton">Удалить</button>
+                    </form>
+                    <form action="#" th:action="@{'/add_in_cart/' + ${product.id}}">
+                    <input type="hidden" name="_method" value="get"/>
+                    <button type="submit" id="submitButton1">Добавить в корзину</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>
